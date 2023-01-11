@@ -37,9 +37,10 @@ analysis we also merge cell types in this step, see `preprocess_scripts`.
 Create a summed matrix of contacts from previous step
 
 ```
-# hard coded paths in script
-# ../2_get_contact_labels/state_bedfiles/scored/*bed
-#./3_create_matrix.sh
+# include path to scored bedfiles within script (created in step 2)
+# 	state_bedfiles/scored/*bed
+
+./3_create_matrix.sh
 ```
 
 The resulting `matrix_connections.tsv` is ready for clustering.

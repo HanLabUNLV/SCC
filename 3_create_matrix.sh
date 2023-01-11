@@ -3,7 +3,7 @@
 mkdir labelled
 rm class_meta.txt
 
-for bedfile in ../2_get_contact_labels/state_bedfiles/scored/*bed; do
+for bedfile in state_bedfiles/scored/*bed; do
 	
 	id=${bedfile%_scored.bed}
 	id=${id##*/}
