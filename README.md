@@ -47,8 +47,12 @@ The resulting `matrix_connections.tsv` is ready for clustering.
 
 
 
-Supplemental Data for the manuscript
+# Supplemental Data for the manuscript
+
 [Supplemental_data_S1](https://drive.google.com/file/d/15KZXQA44aqJyhd_Yzg-EkTM-0C3UHrTO/view?usp=share_link): SCC matrix resulting from the sum of chromatin state by contact 
+
 [Supplemental_data_S2](https://drive.google.com/file/d/1Khxh88MKg6TZDbATef04-Df4MKYfA5ke/view?usp=share_link): cluster membership for each row resulting from k-means clustering on SCC matrix
+
 [Supplemental_table_S1](https://docs.google.com/spreadsheets/d/1Fe3m6UaxT8Dmn32-xCZBX0l2AJsxaUT3/edit?usp=share_link&ouid=116370094857147559521&rtpof=true&sd=true): differential expression analysis 
+
 
