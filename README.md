@@ -1,4 +1,4 @@
-# SOCCS
+# SCC
 Sum Of Chromatin State by Contact
 
 ## Step 1
