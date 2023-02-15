@@ -19,7 +19,8 @@ cat labelled/* > labelled_all.bed
 
 bedtools sort -i labelled_all.bed | bedtools merge -i - -d -200 -o collapse -c 4,5,6,7,8 > merged.bed
 
+# get original labels
 # -F 100% of the region should be in the ChromHMM region
-bedtools intersect -a ../2_get_contact_labels/chromHMM_total.bed -b merged.bed -wo -F 1.0 | bedtools sort -i - > final_merged.bed
+bedtools intersect -a chromHMM_total.bed -b merged.bed -wo -F 1.0 | bedtools sort -i - > final_merged.bed
 
-./bed_to_matrix.py
+./3_1_bed_to_matrix.py

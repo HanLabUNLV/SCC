@@ -15,11 +15,11 @@ python 1_get_scores_mcool.py 4DNFI9E222YJ.mcool::/resolutions/1000 \
 
 ## Step 2
 
-Get labels of every contact region found in step 1. In this 
-analysis we also merge cell types in this step, see `preprocess_scripts`.
+Get labels of every contact region found in step 1. In the multi-cell type
+analysis we also merge cell types before this step, see `preprocess_scripts`.
 
 ```
-# chromHMM_total.bed
+# chromHMM_total.bed.gz
 #  chr1    10000    177200    Quies    0    .    10000    177200    255,255,255
 #  chr1    257849    297849    Quies    0    .    257849    297849    255,255,255
 #  chr1    586020    777820    Quies    0    .    586020    777820    255,255,255
@@ -29,7 +29,7 @@ analysis we also merge cell types in this step, see `preprocess_scripts`.
 #  chr1    779000    780000    chr1_endo    777820    778420    0.23094778295675608
 #  chr1    787000    788000    chr1_endo    777820    778420    0.05381787728341296
 
-./2_get_contact_labels.sh all_loops.bedpe.gz chromHMM_total.bed
+./2_get_contact_labels.sh all_loops.bedpe.gz chromHMM_total.bed.gz
 ```
 
 ## Step 3

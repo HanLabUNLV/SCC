@@ -2,14 +2,21 @@
 
 ####### LOOPS FILE, 7th COLUMN NEEDS TO BE SCORE
 ###	chr_contact_window,pos1_contact_window,pos2_contact_window  chr_base,pos1_base,pos2_base,contact_score label_base
+
+# remove / in "ZNF/Rpts"
+zcat all_loops.bedpe.gz | awk '{ print gensub(/ZNF\/Rpts/, "ZNF-Rpts", "g");}' -  > all_loops.bedpe
+
 loops=$1
 #loops=all_loops.bedpe
 
 ### Prep chromHMM bedfile for intersect
 chromHMM=$2
-#chromHMM=chromHMM_total.bed
+#chromHMM=chromHMM_epimap_calls.bed.gz
 
-cut -f1-4 $chromHMM > chromHMM_coordonly.bed
+zcat $chromHMM | awk '{ print gensub(/ZNF\/Rpts/, "ZNF-Rpts", "g");}' -  > x
+awk '{ print gensub(/(chr[0-9XY]+)/, "\\1_h1", "g");}' x > chromHMM_total.bed
+
+cut -f1-4 chromHMM_total.bed > chromHMM_coordonly.bed
 cut -f4 chromHMM_coordonly.bed | sort | uniq > class_meta.txt
 
 echo "prepped loops and ChromHMM"
