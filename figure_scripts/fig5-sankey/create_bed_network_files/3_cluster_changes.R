@@ -6,7 +6,7 @@ library(ggsignif)
 library(circlize)
 library(ComplexHeatmap)
 
-# # bash - # cut -f 1,2,3 *200bp_window.bed | sort | uniq > all_regions.txt
+# # NOTE: USE BASH HERE:- # cut -f 1,2,3 *200bp_window.bed | sort | uniq > all_regions.txt
 # all_regions <- read_tsv("all_regions_uniq.txt",col_names = c("chr","pos1","pos2"))
 #   
 # 
