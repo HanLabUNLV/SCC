@@ -54,6 +54,10 @@ hff_genes_low <- read_tsv("expressed_genes/hff_genes_low.tsv")$hgnc_symbol
 hff_genes_zero <- read_tsv("expressed_genes/hff_genes_zero.tsv")$hgnc_symbol
 
 
+hela_genes_hi <- read_tsv("expressed_genes/hela_genes_high.tsv")$hgnc_symbol
+hela_genes_low <- read_tsv("expressed_genes/hela_genes_low.tsv")$hgnc_symbol
+hela_genes_zero <- read_tsv("expressed_genes/hela_genes_zero.tsv")$hgnc_symbol
+
 # GET INTERSECT OF CLUSTERS BY ENHANCERS
 
 library(GenomicRanges)
@@ -155,11 +159,21 @@ tss_endo_low <- get_enrichment(clusters_endo,
 tss_endo_hi <- get_enrichment(clusters_endo,
                             all_tss[all_tss$mcols.Gene_symbol %in% endo_genes_hi],
                             "high\nexpr\nTSS","Endoderm")
-tss_endo_zero <- get_enrichment(clusters_hff,
+tss_endo_zero <- get_enrichment(clusters_endo,
                                all_tss[all_tss$mcols.Gene_symbol %in% endo_genes_zero],
                                "zero\nexpr\nTSS","Endoderm")
 
-tss_hela <- get_enrichment(clusters_hela,all_tss,"all TSS","HeLa")
+tss_hela_low <- get_enrichment(clusters_hela,
+                               all_tss[all_tss$mcols.Gene_symbol %in% endo_genes_low],
+                               "low\nexpr\nTSS","HeLa")
+tss_hela_hi <- get_enrichment(clusters_hela,
+                              all_tss[all_tss$mcols.Gene_symbol %in% endo_genes_hi],
+                              "high\nexpr\nTSS","HeLa")
+tss_hela_zero <- get_enrichment(clusters_hela,
+                                all_tss[all_tss$mcols.Gene_symbol %in% endo_genes_zero],
+                                "zero\nexpr\nTSS","HeLa")
+
+# tss_hela <- get_enrichment(clusters_hela,all_tss,"all TSS","HeLa")
 
 h1_enhancers <- all_enhancers %>% subset(cell_type == "H1")
 enh_h1 <- get_enrichment(clusters_h1,
@@ -174,6 +188,8 @@ enh_hela <- get_enrichment(clusters_hela,
                                    IRanges(as.numeric(hela_enhancers$pos1),
                                            as.numeric(hela_enhancers$pos2)))
                          ,"active\nenhancer","HeLa")
+
+
 h1_se <- read_tsv("SEdb/h1_SE.bed")
 se_h1 <- get_enrichment(clusters_h1,
                         GRanges(h1_se$se_chr,
@@ -207,7 +223,7 @@ se_hela <- get_enrichment(clusters_hela,
 z <- bind_rows(se_hela,se_endo,se_hff,se_h1,
                enh_hela,enh_h1,
                tss_endo_hi,tss_endo_low,tss_endo_zero,
-               tss_hela,
+               tss_hela_hi,tss_hela_low,tss_hela_zero,
                tss_h1_hi,tss_h1_low,tss_h1_zero,
                tss_hff_hi,tss_hff_low,tss_hff_zero)
 colnames(z) <- c("cluster","type","stdres","p.value","cell_type")
@@ -225,11 +241,11 @@ ord <- rev(c("cont_Tss_Enh","cont_Tss_EnhG","cont_Tss_EnhWk","cont_Tss_noEnh",
 
 z$cluster <- factor( z$cluster, levels = ord)
 
-z$type <- factor( z$type, levels = c("active\nenhancer", "SE","all TSS", "high\nexpr\nTSS", "low\nexpr\nTSS",  "zero\nexpr\nTSS"))
+z$type <- factor( z$type, levels = c("active\nenhancer", "SE", "high\nexpr\nTSS", "low\nexpr\nTSS",  "zero\nexpr\nTSS"))
 # z$stdres <- ifelse(z$stdres > 50, 50, z$stdres)
 
 
- png("enrichment_enh_tss.png",height = 1700,width =2700,res = 300)
+ png("enrichment_enh_tss_updated.png",height = 1700,width =2700,res = 300)
  # png("enrichment_enh_tss_large.png",height = 1800,width =4000,res = 500)
  # png("enrichment_enh_tss_poster.png",height = 800,width =1600,res = 200)
 
